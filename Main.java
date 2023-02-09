@@ -5,12 +5,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int a = (int) (20+Math.random()*(30-20));
-        int b = (int) (40+Math.random()*(50-40));
+        float x = -4.5f;
+        float y = 0.75E-4f;
+        float z = 84.5f;
 
-        System.out.println("a = " + a);
-        System.out.println("b = " + b);
+        Formula formula = new Formula();
 
-        myNumbersProcessing(a, b);
+        formula.set(x, y, z);
+        formula.run();
+        formula.print();
     }
 }
