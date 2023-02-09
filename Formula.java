@@ -19,4 +19,20 @@ public class Formula {
     public void print() {
         System.out.println("Formula result = " + result);
     }
+
+    public double getResult() {
+        return result;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getZ() {
+        return z;
+    }
 }
