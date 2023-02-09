@@ -4,21 +4,53 @@ public class Main {
         System.out.println("a * b = " + (a * b));
     }
 
-    public static void main(String[] args) {
-        float x = -4.5f;
-        float y = 0.75E-4f;
-        float z = 84.5f;
-        float xstep = 0.2f;
-        float ystep = 0.0002f;
-        float zstep = 2f;
-        int size = 5;
-        x -= xstep;
-        y -= ystep;
-        z -= zstep;
+    public static double calcAverageMark(Subject[] subjects) {
+        double sumMark = 0;
+        for (Subject subject : subjects)
+            sumMark += subject.getMark();
 
-        Calculator calculator = new Calculator(size, xstep, ystep, zstep);
-        calculator.set(x, y, z);
-        calculator.calculate();
-        calculator.print();
+        return sumMark / subjects.length;
+    }
+
+    public static String marksToString(Subject[] subjects) {
+        StringBuilder marks = new StringBuilder("[ ");
+        for (Subject subject : subjects) {
+            marks.append(String.format("{%s, %.2f, ", subject.getNameSubject(), subject.getMark()));
+            if (subject.isPassed())
+                marks.append("passed} ");
+            else
+                marks.append("not passed} ");
+        }
+        marks.append("]");
+
+        return marks.toString();
+    }
+
+    public static void main(String[] args) {
+        String[] nameSubjects = {"gbfdv", "trhegedf", "vfdsbhdf", "nytrhgdf", "njnghgf"};
+        String[] names = {"Qwer", "Fadsc", "Vgdbv", "Ngbdnh", "Umesvd"};
+        String[] surnames = {"Nhgfdv", "Fbsgdsvf", "Bysgfv", "Yyrfsn", "Jsczcz"};
+        String group = "FF-22";
+        Student[] students = new Student[5];
+
+        for (int index = 0; index < students.length; index++){
+            Subject[] subjects = new Subject[5];
+            for (int jindex = 0; jindex < subjects.length; jindex++)
+                subjects[jindex] = new Subject(nameSubjects[jindex], (float)(2+Math.random()*(5-2)));
+
+            students[index] = new Student(names[index], surnames[index], group, subjects);
+        }
+
+        for (Student student : students) {
+            double averageMark = calcAverageMark(student.getSubjects());
+            System.out.printf("Student %s %s:\n\tMarks and passed = %s\n\tAverage Mark = %f\n"
+            , student.getName(), student.getSurname(), marksToString(student.getSubjects()), averageMark);
+            if (averageMark >= 4 && averageMark < 5)
+                System.out.println("\tRegular Scholarship");
+            else if (averageMark == 5)
+                System.out.println("\tIncreased Scholarship");
+            else
+                System.out.println("\tWithout a Scholarship");
+        }
     }
 }
