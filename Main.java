@@ -29,10 +29,10 @@ public class Main {
     public static void main(String[] args) {
         String[] names = {"Qwer", "Fadsc", "Vgdbv", "Ngbdnh", "Umesvd"};
         String[] bicycleType = {"Sport", "Usual"};
-        final int limitVehicle = 5;
-        Server server = new Server(4, limitVehicle);
+        final int limitVehicle = 100;
+        Server server = new Server(7, limitVehicle);
         for (int i = 0; i < limitVehicle; i++) {
-            int vehicleType = (int)(Math.random()*(4));
+            int vehicleType = (int)(Math.random()*(7));
             switch (vehicleType) {
                 case 0 -> {
                     Car car = new Car(false, names[(int) (Math.random() * (5))], (int) (100 + Math.random() * (300 - 100)),
@@ -52,6 +52,23 @@ public class Main {
                     Jumpers jumpers = new Jumpers(false, names[(int) (Math.random() * (5))]);
                     server.addTransport(3, jumpers);
                 }
+                case 4 -> {
+                    Bus bus = new Bus(names[(int) (Math.random() * (5))], (int)(4 + Math.random() * (10 - 4)),
+                            (int)(100 + Math.random() * (250 - 100)), (int)(10 + Math.random() * (30 - 10)));
+                    server.addTransport(4, bus);
+                }
+                case 5 -> {
+                    TractorWheeled tractorWheeled = new TractorWheeled(names[(int) (Math.random() * (5))],
+                            (int)(4 + Math.random() * (10 - 4)),
+                            (int)(100 + Math.random() * (250 - 100)));
+                    server.addTransport(5, tractorWheeled);
+                }
+                case 6 -> {
+                    TractorCrawler tractorCrawler = new TractorCrawler(names[(int) (Math.random() * (5))],
+                            (int)(4 + Math.random() * (10 - 4)),
+                            (int)(100 + Math.random() * (250 - 100)));
+                    server.addTransport(6, tractorCrawler);
+                }
             }
         }
         int[] countVehicles = server.getCountVehicles();
@@ -60,5 +77,8 @@ public class Main {
         System.out.println("\tCount move bicycles: " + countVehicles[1]);
         System.out.println("\tCount move rollerSkates: " + countVehicles[2]);
         System.out.println("\tCount move jumpers: " + countVehicles[3]);
+        System.out.println("\tCount move bus: " + countVehicles[4]);
+        System.out.println("\tCount move tractorWheeled: " + countVehicles[5]);
+        System.out.println("\tCount move tractorCrawler: " + countVehicles[6]);
     }
 }

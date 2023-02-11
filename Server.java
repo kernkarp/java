@@ -7,12 +7,14 @@ public class Server {
     private int limitVehicle;
     // масив, що зберігає ТЗ будь-якого виду
     private Vehicle[] vehicles;
+    private Machine[] machines;
 
     // конструктор класу, параметр size – кількість видів ТЗ
     public Server (int countOfTypeVehicle, int limitVehicle) {
         countVehicles = new int[countOfTypeVehicle];
         this.limitVehicle = limitVehicle;
         vehicles = new Vehicle[limitVehicle];
+        machines = new Machine[limitVehicle];
         commonCountVehicles = 0;
     }
 
@@ -36,5 +38,11 @@ public class Server {
         vehicles [commonCountVehicles] = vehicle;
         commonCountVehicles ++;
         vehicle.move(countVehicles[numberVehicles]);
+    }
+    public void addTransport (int numberVehicles, Machine machine) {
+        countVehicles[numberVehicles]++;
+        machines [commonCountVehicles] = machine;
+        commonCountVehicles ++;
+        machine.move();
     }
 }
