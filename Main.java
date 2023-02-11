@@ -27,30 +27,38 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        String[] nameSubjects = {"gbfdv", "trhegedf", "vfdsbhdf", "nytrhgdf", "njnghgf"};
         String[] names = {"Qwer", "Fadsc", "Vgdbv", "Ngbdnh", "Umesvd"};
-        String[] surnames = {"Nhgfdv", "Fbsgdsvf", "Bysgfv", "Yyrfsn", "Jsczcz"};
-        String group = "FF-22";
-        Student[] students = new Student[5];
-
-        for (int index = 0; index < students.length; index++){
-            Subject[] subjects = new Subject[5];
-            for (int jindex = 0; jindex < subjects.length; jindex++)
-                subjects[jindex] = new Subject(nameSubjects[jindex], (float)(2+Math.random()*(5-2)));
-
-            students[index] = new Student(names[index], surnames[index], group, subjects);
+        String[] bicycleType = {"Sport", "Usual"};
+        final int limitVehicle = 5;
+        Server server = new Server(4, limitVehicle);
+        for (int i = 0; i < limitVehicle; i++) {
+            int vehicleType = (int)(Math.random()*(4));
+            switch (vehicleType) {
+                case 0 -> {
+                    Car car = new Car(false, names[(int) (Math.random() * (5))], (int) (100 + Math.random() * (300 - 100)),
+                            (20 + Math.random() * (70 - 20)));
+                    server.addTransport(0, car);
+                }
+                case 1 -> {
+                    Bicycle bicycle = new Bicycle(false, names[(int) (Math.random() * (5))],
+                            bicycleType[(int) (Math.random() * (2))]);
+                    server.addTransport(1, bicycle);
+                }
+                case 2 -> {
+                    RollerSkates rollerSkates = new RollerSkates(false, names[(int) (Math.random() * (5))]);
+                    server.addTransport(2, rollerSkates);
+                }
+                case 3 -> {
+                    Jumpers jumpers = new Jumpers(false, names[(int) (Math.random() * (5))]);
+                    server.addTransport(3, jumpers);
+                }
+            }
         }
-
-        for (Student student : students) {
-            double averageMark = calcAverageMark(student.getSubjects());
-            System.out.printf("Student %s %s:\n\tMarks and passed = %s\n\tAverage Mark = %f\n"
-            , student.getName(), student.getSurname(), marksToString(student.getSubjects()), averageMark);
-            if (averageMark >= 4 && averageMark < 5)
-                System.out.println("\tRegular Scholarship");
-            else if (averageMark == 5)
-                System.out.println("\tIncreased Scholarship");
-            else
-                System.out.println("\tWithout a Scholarship");
-        }
+        int[] countVehicles = server.getCountVehicles();
+        System.out.println("Count move vehicles: " + server.getCurrentCountVehicle());
+        System.out.println("\tCount move cars: " + countVehicles[0]);
+        System.out.println("\tCount move bicycles: " + countVehicles[1]);
+        System.out.println("\tCount move rollerSkates: " + countVehicles[2]);
+        System.out.println("\tCount move jumpers: " + countVehicles[3]);
     }
 }
